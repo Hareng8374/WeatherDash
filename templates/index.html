@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather App</title>
+</head>
+<body>
+    <h1>Weather App</h1>
+    <form method="POST">
+        <label>Enter City:</label>
+        <input type="text" name="city" required>
+        <input type="submit" value="Get Weather">
+    </form>
+
+    {% if weather_data %}
+        {% if weather_data.error %}
+            <p style="color:red;">{{ weather_data.error }}</p>
+        {% else %}
+            <h2>{{ weather_data.name }}, {{ weather_data.sys.country }}</h2>
+            <p>Temperature: {{ weather_data.main.temp }}°F</p>
+            <p>Feels Like: {{ weather_data.main.feels_like }}°F</p>
+            <p>Humidity: {{ weather_data.main.humidity }}%</p>
+
+            <img src="{{ url_for('static', filename='chart.png') }}" alt="Weather Chart">
+        {% endif %}
+    {% endif %}
+</body>
+</html>
