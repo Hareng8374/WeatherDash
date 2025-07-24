@@ -1,21 +1,22 @@
 from flask import Flask, render_template, request
 import requests
 import os
+from dotenv import load_dotenv
 
-# ✅ Use non-GUI backend to avoid thread/tkinter errors
+load_dotenv()
+
+API_KEY = os.environ.get("OPENWEATHER_API_KEY")
+BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
+
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 
-# ✅ Replace this with your actual OpenWeatherMap API key
-API_KEY = "958147c2c0c7322cdc45c65f381270e3"
-BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
-
 @app.route("/", methods=["GET", "POST"])
 def home():
-    weather_data = None  # Nothing by default
+    weather_data = None
 
     if request.method == "POST":
         city = request.form.get("city")
@@ -23,7 +24,7 @@ def home():
             params = {
                 "q": city,
                 "appid": API_KEY,
-                "units": "imperial"  # Use "metric" for Celsius
+                "units": "imperial"
             }
 
             response = requests.get(BASE_URL, params=params)
@@ -32,17 +33,17 @@ def home():
             if response.status_code == 200:
                 weather_data = response.json()
 
-                # ✅ Extract data safely
+                # Extract weather info safely
                 main_data = weather_data.get("main", {})
                 temp = main_data.get("temp", 0)
                 feels_like = main_data.get("feels_like", 0)
                 humidity = main_data.get("humidity", 0)
 
-                # ✅ Make sure 'static' folder exists
+                # Ensure static/ exists
                 if not os.path.exists("static"):
                     os.makedirs("static")
 
-                # ✅ Create chart
+                # Create weather chart
                 labels = ["Temperature (°F)", "Feels Like (°F)", "Humidity (%)"]
                 values = [temp, feels_like, humidity]
                 colors = ["dodgerblue", "green", "gold"]
