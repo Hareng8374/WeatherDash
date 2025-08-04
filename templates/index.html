@@ -4,13 +4,12 @@
     <title>WeatherDash</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+<body style="background-image: url('{{ background_url }}'); background-size: cover; background-repeat: no-repeat; background-position: center;">
     <h1>🌤️ WeatherDash</h1>
     <form method="POST">
         <input type="text" name="city" placeholder="Enter city name" required>
         <button type="submit">Get Weather</button>
     </form>
-
     {% if weather_data %}
         {% if weather_data.error %}
             <p style="color: red;">{{ weather_data.error }}</p>
