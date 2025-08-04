@@ -40,17 +40,17 @@ def home():
                 feels_like = main_data.get("feels_like", 0)
                 humidity = main_data.get("humidity", 0)
 
-                # Set dynamic background
+                # Set dynamic background (verified Unsplash images)
                 desc = weather_data.get("weather", [{}])[0].get("main", "").lower()
 
                 if "rain" in desc:
-                    background_url = "https://i.imgur.com/rpD7VSV.jpg"
+                    background_url = "https://images.unsplash.com/photo-1503428593586-e225b39bddfe"
                 elif "cloud" in desc:
-                    background_url = "https://i.imgur.com/MWbXdnV.jpg"
+                    background_url = "https://images.unsplash.com/photo-1501594907352-04cda38ebc29"
                 elif "clear" in desc or "sun" in desc:
-                    background_url = "https://i.imgur.com/SbMhQnA.jpg"
+                    background_url = "https://images.unsplash.com/photo-1501973801540-537f08ccae7d"
                 else:
-                    background_url = "https://i.imgur.com/DFXJuLX.jpg"
+                    background_url = "https://images.unsplash.com/photo-1503264116251-35a269479413"
 
                 # Ensure static/ exists
                 if not os.path.exists("static"):
