@@ -17,34 +17,34 @@ def get_background_url(weather_description):
     """Determine background image URL based on weather description"""
     description = weather_description.lower()
     
-    # Rain conditions
+    # Rain conditions - OBVIOUS HEAVY RAIN IMAGE
     if any(word in description for word in ['rain', 'drizzle', 'shower']):
-        return "https://images.unsplash.com/photo-1519692933481-e162a57d6721?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+        return "https://images.pexels.com/photos/1463917/pexels-photo-1463917.jpeg?auto=compress&cs=tinysrgb&w=1600"
     
-    # Cloudy conditions
+    # Cloudy conditions - OBVIOUS GRAY CLOUDY SKY
     elif any(word in description for word in ['cloud', 'overcast', 'fog', 'mist']):
-        return "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+        return "https://images.pexels.com/photos/209831/pexels-photo-209831.jpeg?auto=compress&cs=tinysrgb&w=1600"
     
-    # Clear/Sunny conditions
+    # Clear/Sunny conditions - OBVIOUS BRIGHT SUNNY BLUE SKY
     elif any(word in description for word in ['clear', 'sunny', 'sky']):
-        return "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+        return "https://images.pexels.com/photos/96622/pexels-photo-96622.jpeg?auto=compress&cs=tinysrgb&w=1600"
     
-    # Snow conditions
+    # Snow conditions - OBVIOUS SNOW SCENE
     elif any(word in description for word in ['snow', 'blizzard']):
-        return "https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+        return "https://images.pexels.com/photos/688660/pexels-photo-688660.jpeg?auto=compress&cs=tinysrgb&w=1600"
     
-    # Thunderstorm conditions
+    # Thunderstorm conditions - OBVIOUS STORM CLOUDS
     elif any(word in description for word in ['thunder', 'storm']):
-        return "https://images.unsplash.com/photo-1605727216801-e27ce1d0cc28?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+        return "https://images.pexels.com/photos/1162251/pexels-photo-1162251.jpeg?auto=compress&cs=tinysrgb&w=1600"
     
-    # Default scenic fallback
+    # Default sunny fallback
     else:
-        return "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+        return "https://images.pexels.com/photos/96622/pexels-photo-96622.jpeg?auto=compress&cs=tinysrgb&w=1600"
 
 @app.route("/", methods=["GET", "POST"])
 def home():
     weather_data = None
-    background_url = "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"  # Default background
+    background_url = "https://images.pexels.com/photos/96622/pexels-photo-96622.jpeg?auto=compress&cs=tinysrgb&w=1600"  # Default sunny background
     
     if request.method == "POST":
         city = request.form.get("city")
