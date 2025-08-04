@@ -1,27 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Weather App</title>
+    <title>WeatherDash</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Weather App</h1>
+    <h1>🌤️ WeatherDash</h1>
     <form method="POST">
-        <label>Enter City:</label>
-        <input type="text" name="city" required>
-        <input type="submit" value="Get Weather">
+        <input type="text" name="city" placeholder="Enter city name" required>
+        <button type="submit">Get Weather</button>
     </form>
 
     {% if weather_data %}
         {% if weather_data.error %}
-            <p style="color:red;">{{ weather_data.error }}</p>
+            <p style="color: red;">{{ weather_data.error }}</p>
         {% else %}
-            <h2>{{ weather_data.name }}, {{ weather_data.sys.country }}</h2>
-            <p>Temperature: {{ weather_data.main.temp }}°F</p>
-            <p>Feels Like: {{ weather_data.main.feels_like }}°F</p>
-            <p>Humidity: {{ weather_data.main.humidity }}%</p>
-
-            <img src="{{ url_for('static', filename='chart.png') }}" alt="Weather Chart">
+            <div class="weather-info">
+                <p><strong>Temperature:</strong> {{ weather_data.main.temp }} °F</p>
+                <p><strong>Feels Like:</strong> {{ weather_data.main.feels_like }} °F</p>
+                <p><strong>Humidity:</strong> {{ weather_data.main.humidity }}%</p>
+                <img src="{{ url_for('static', filename='chart.png') }}" alt="Weather Chart">
+            </div>
         {% endif %}
     {% endif %}
 </body>
