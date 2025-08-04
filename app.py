@@ -17,7 +17,6 @@ app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
 def home():
     weather_data = None
-    background_url = ""  # default background
 
     if request.method == "POST":
         city = request.form.get("city")
@@ -39,18 +38,6 @@ def home():
                 temp = main_data.get("temp", 0)
                 feels_like = main_data.get("feels_like", 0)
                 humidity = main_data.get("humidity", 0)
-
-                # Set dynamic background (verified Unsplash images)
-                desc = weather_data.get("weather", [{}])[0].get("main", "").lower()
-
-                if "rain" in desc:
-                    background_url = "https://images.unsplash.com/photo-1503428593586-e225b39bddfe"
-                elif "cloud" in desc:
-                    background_url = "https://images.unsplash.com/photo-1501594907352-04cda38ebc29"
-                elif "clear" in desc or "sun" in desc:
-                    background_url = "https://images.unsplash.com/photo-1501973801540-537f08ccae7d"
-                else:
-                    background_url = "https://images.unsplash.com/photo-1503264116251-35a269479413"
 
                 # Ensure static/ exists
                 if not os.path.exists("static"):
@@ -76,8 +63,8 @@ def home():
                     error_msg = "Something went wrong"
                 weather_data = {"error": f"City '{city}' not found! ({error_msg})"}
 
-    return render_template("index.html", weather_data=weather_data, background_url=background_url)
+    return render_template("index.html", weather_data=weather_data)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Render sets the PORT
+    port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
