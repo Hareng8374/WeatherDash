@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request
 import requests
 import os
@@ -18,6 +17,7 @@ app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
 def home():
     weather_data = None
+    background_url = ""  # default background
 
     if request.method == "POST":
         city = request.form.get("city")
@@ -39,6 +39,18 @@ def home():
                 temp = main_data.get("temp", 0)
                 feels_like = main_data.get("feels_like", 0)
                 humidity = main_data.get("humidity", 0)
+
+                # Set dynamic background
+                desc = weather_data.get("weather", [{}])[0].get("main", "").lower()
+
+                if "rain" in desc:
+                    background_url = "https://i.imgur.com/rpD7VSV.jpg"
+                elif "cloud" in desc:
+                    background_url = "https://i.imgur.com/MWbXdnV.jpg"
+                elif "clear" in desc or "sun" in desc:
+                    background_url = "https://i.imgur.com/SbMhQnA.jpg"
+                else:
+                    background_url = "https://i.imgur.com/DFXJuLX.jpg"
 
                 # Ensure static/ exists
                 if not os.path.exists("static"):
@@ -64,10 +76,8 @@ def home():
                     error_msg = "Something went wrong"
                 weather_data = {"error": f"City '{city}' not found! ({error_msg})"}
 
-    return render_template("index.html", weather_data=weather_data)
+    return render_template("index.html", weather_data=weather_data, background_url=background_url)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))  # Render sets the PORT
     app.run(host="0.0.0.0", port=port)
-
-
