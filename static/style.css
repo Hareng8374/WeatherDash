@@ -1,0 +1,55 @@
+body {
+  background: #d6ecf5;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  padding: 2rem;
+  margin: 0;
+}
+
+h1 {
+  color: #343a40;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+form {
+  margin-bottom: 2rem;
+}
+
+input[type="text"] {
+  padding: 0.5rem;
+  width: 220px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.weather-info {
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+img {
+  margin-top: 1rem;
+  max-width: 100%;
+  border-radius: 8px;
+}
